@@ -21,7 +21,7 @@ export default {
         { label: "性别", prop: "sex", width: "120" },
         { label: "地址", prop: "address", width: "" },
       ],
-      // 移动列的方法
+      // 移动列的实例
       newSortablejs: null,
     };
   },
@@ -29,6 +29,7 @@ export default {
     this.sortiesTable();
   },
   methods: {
+    // 列移动
     sortiesTable() {
       const _this = this;
       this.$nextTick(function () {
@@ -54,6 +55,7 @@ export default {
         });
       });
     },
+    // 改变列宽的方法
     headerDragend(newWidth, oldWidth, column, event) {
       // 销毁移动列方法  然后重新赋
       this.newSortablejs.destroy();
