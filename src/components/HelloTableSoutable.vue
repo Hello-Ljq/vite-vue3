@@ -1,5 +1,10 @@
 <template>
-  <el-table id="sortableId" border @header-dragend="headerDragend">
+  <el-table
+    id="sortableId"
+    border
+    @header-dragend="headerDragend"
+    :data="tableData"
+  >
     <el-table-column
       v-for="item in tableColumn"
       :prop="item.prop"
@@ -20,6 +25,13 @@ export default {
         { label: "年龄", prop: "age", width: "120" },
         { label: "性别", prop: "sex", width: "120" },
         { label: "地址", prop: "address", width: "" },
+      ],
+      tableData: [
+        { name: "李", age: "24", sex: "男" },
+        { name: "于", age: "19", sex: "女" },
+        { name: "王", age: "22", sex: "女" },
+        { name: "赵", age: "29", sex: "男" },
+        { name: "刘", age: "34", sex: "男" },
       ],
       // 移动列的实例
       newSortablejs: null,
