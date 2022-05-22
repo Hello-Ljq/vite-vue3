@@ -25,7 +25,7 @@
         @click="handleLogin('loginForm')"
         type="primary"
         class="submit-btn"
-        >提交</el-button
+        >登陆</el-button
       >
     </el-form-item>
 
@@ -38,6 +38,7 @@
 
 <script lang="ts">
 import { ref, getCurrentInstance } from "vue";
+import { useRouter } from "vue-router";
 export default {
   props: {
     loginUser: {
@@ -52,12 +53,12 @@ export default {
   setup() {
     // @ts-ignore
     const { ctx } = getCurrentInstance();
-
+    const router = useRouter();
     // 触发登录方法
     const handleLogin = (formName: string) => {
       ctx.$refs[formName].validate((valid: boolean) => {
         if (valid) {
-          alert("submit!");
+          router.push("/Home");
         } else {
           console.log("error submit!!");
           return false;

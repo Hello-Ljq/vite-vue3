@@ -6,8 +6,8 @@ interface User {
 }
 
 export const loginUser = ref<User>({
-  email: "",
-  password: "",
+  email: "li_ljq@163.com",
+  password: "123456",
 });
 
 interface Rules {

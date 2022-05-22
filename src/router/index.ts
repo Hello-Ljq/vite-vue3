@@ -14,17 +14,9 @@ const routes = [
         component: () => import('../views/login/login.vue'),
     },
     {
-        path: '',
-        redirect: {
-            name: 'home',
-        },
-        children: [
-            {
-                path: "/home",
-                name: 'home',
-                component: () => import('../views/Home.vue'),
-            },
-        ]
+        path: '/helloTableSoutable',
+        name: "helloTableSoutable",
+        component: () => import('/src/components/HelloTableSoutable.vue'),
     },
 ]
 
@@ -39,6 +31,9 @@ const router = createRouter({
 // })
 // router.addRoute('about', {
 //     path: '/about/info',
+// redirect: {
+//     name: 'home',
+// },
 //     name: 'info',
 //     component: {
 //         render() {
