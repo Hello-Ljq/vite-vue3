@@ -4,7 +4,7 @@
 </script> -->
 
 <template>
-   <router-view />
+  <router-view />
 </template>
 
 <style>
@@ -14,5 +14,11 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+body {
+  margin: 0px;
+}
+* {
+  box-sizing: border-box;
 }
 </style>

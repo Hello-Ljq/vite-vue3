@@ -7,6 +7,8 @@ import {
     createWebHistory
 } from 'vue-router'
 
+import Layout from "/src/layout/index.vue"
+
 const routes = [
     {
         path: "/login",
@@ -14,9 +16,16 @@ const routes = [
         component: () => import('../views/login/login.vue'),
     },
     {
-        path: '/helloTableSoutable',
-        name: "helloTableSoutable",
-        component: () => import('/src/components/HelloTableSoutable.vue'),
+        path: '/',
+        component: Layout,
+        children: [
+            {
+                path: "/helloTableSoutable",
+                name: 'helloTableSoutable',
+                component: () => import('/src/components/HelloTableSoutable.vue'),
+            }
+        ]
+
     },
 ]
 
