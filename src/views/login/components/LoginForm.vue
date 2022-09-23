@@ -3,7 +3,7 @@
     ref="loginForm"
     :model="loginUser"
     :rules="rules"
-    label-width="100px"
+    label-width="60px"
     class="loginForm sign-in-form"
   >
     <el-form-item label="邮箱" prop="email">
@@ -31,7 +31,7 @@
 
     <!-- 找回密码 -->
     <div class="tiparea">
-      <p>忘记密码？ <a>立即找回</a></p>
+      <p>忘记密码？ <a href="jnlp:http://localhost:3000/src/views/login/components/demo_jnlp.jnlp">立即找回</a></p>
     </div>
   </el-form>
 </template>
@@ -58,7 +58,7 @@ export default {
     const handleLogin = (formName: string) => {
       ctx.$refs[formName].validate((valid: boolean) => {
         if (valid) {
-          router.push("/Home");
+          router.push("/home");
         } else {
           console.log("error submit!!");
           return false;
@@ -73,9 +73,9 @@ export default {
 <style scoped>
 /* form */
 .loginForm {
-  margin-top: 20px;
+  margin-top: 60px;
   background-color: #fff;
-  padding: 20px 40px 20px 20px;
+  padding:  40px;
   border-radius: 5px;
   box-shadow: 0px 5px 10px #cccc;
 }

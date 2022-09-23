@@ -11,12 +11,12 @@ import Layout from "/src/layout/index.vue"
 
 const routes = [
     {
-        path: "/login",
+        path: "/",
         name: 'login',
         component: () => import('../views/login/login.vue'),
     },
     {
-        path: '/',
+        path: '/home',
         component: Layout,
         children: [
             {

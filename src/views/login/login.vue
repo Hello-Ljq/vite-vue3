@@ -18,7 +18,7 @@
       <div class="panel left-panel">
         <div class="content">
           <h3>学习是为了有更多的选择,让生活变的更美好!</h3>
-          <p>何以解忧,唯有米修</p>
+          <p>何以解忧</p>
           <el-button @click="signUpMode = !signUpMode" class="btn transparent">
             注册
           </el-button>
@@ -29,7 +29,7 @@
       <div class="panel right-panel">
         <div class="content">
           <h3>以人为镜,可明得失, 以代码为镜,可通逻辑!</h3>
-          <p>学习编程,让你的生活更有趣</p>
+          <p>努力,让你的生活更有趣</p>
           <el-button @click="signUpMode = !signUpMode" class="btn transparent">
             登录
           </el-button>
@@ -410,7 +410,7 @@ form.sign-up-form {
 .registerForm {
   margin-top: 20px;
   background-color: #fff;
-  padding: 20px 40px 20px 20px;
+  padding: 20px 40px 0px 20px;
   border-radius: 5px;
   box-shadow: 0px 5px 10px #cccc;
 }

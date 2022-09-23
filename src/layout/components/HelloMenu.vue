@@ -10,9 +10,9 @@
   </el-drawer>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-  name: "MenuDrawer",
+  name: "HelloMenu",
   props: {
     showMenu: {
       type: Boolean,
