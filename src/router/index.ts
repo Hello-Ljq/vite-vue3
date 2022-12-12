@@ -16,13 +16,18 @@ const routes = [
         component: () => import('../views/login/login.vue'),
     },
     {
-        path: '/home',
+        path: '/helloHome',
         component: Layout,
         children: [
             {
-                path: "/helloTableSoutable",
-                name: 'helloTableSoutable',
-                component: () => import('/src/components/HelloTableSoutable.vue'),
+                path: "/helloHome",
+                name: 'helloHome',
+                component: () => import('/src/views/helloHome/index.vue'),
+            },
+            {
+                path: "/helloApp",
+                name: 'helloApp',
+                component: () => import('/src/views/helloApp/index.vue'),
             }
         ]
 

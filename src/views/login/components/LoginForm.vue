@@ -58,7 +58,7 @@ export default {
     const handleLogin = (formName: string) => {
       ctx.$refs[formName].validate((valid: boolean) => {
         if (valid) {
-          router.push("/home");
+          router.push("/helloHome");
         } else {
           console.log("error submit!!");
           return false;

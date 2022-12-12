@@ -1,47 +1,43 @@
 <template>
   <div
     style="
-      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
     "
   >
     <div style="display: flex; align-items: center">
-      <el-tooltip content="展开菜单" placement="right" effect="light">
-        <el-icon :size="20" color="#ffffff"
-          ><Expand @click="isViewMenu = !isViewMenu"
-        /></el-icon>
-      </el-tooltip>
+      <div style="color:#ffffff;">HELLO</div>
       <el-menu
-        style="margin-left: 30px; background-color: transparent; height: 40px"
-        class="el-menu-demo"
+        style="margin-left: 30px;height: 40px"
         mode="horizontal"
         background-color="transparent"
-        text-color="#fff"
+        text-color="#333333"
+        active-text-color="#ffffff"
+        :ellipsis="false"
+        :default-active="defaultActive"
         @select="handleSelect"
-        router
       >
-        <el-menu-item index="/helloTableSoutable">首页</el-menu-item>
-        <el-menu-item index="2">首页</el-menu-item>
+        <el-menu-item index="helloHome">首页</el-menu-item>
+        <el-menu-item index="helloApp">应用</el-menu-item>
       </el-menu>
     </div>
+    <div>用户</div>
   </div>
-  <HelloMenu v-model:showMenu="isViewMenu"></HelloMenu>
 </template>
 
 <script lang="ts">
-import HelloMenu from "./components/HelloMenu.vue";
 export default {
   name: "HelloHeader",
-  components: { HelloMenu },
   data() {
     return {
-      isViewMenu: false,
+      defaultActive:'helloHome'
     };
   },
   methods: {
-    handleSelect(value) {},
+    handleSelect(value: string) {
+      this.$router.push(`/${value}`)
+    },
   },
 };
 </script>
