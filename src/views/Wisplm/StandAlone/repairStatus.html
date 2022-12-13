@@ -1,0 +1,355 @@
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="./js/element/index.css">
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RepairStatus</title>
+</head>
+<style>
+    #app {
+        background-image: url('./img/background1.png');
+        background-size: 100% 100%;
+        height: 100%;
+        width: 100%
+    }
+
+    .fontHead {
+        font-family: "Lucida Calligraphy", cursive, serif, sans-serif;
+        font-size: 100px;
+        color: #fbff25;
+        text-shadow: 3px 10px 10px #fbff25;
+    }
+
+    .form-div {
+        background-color: black;
+        width: 20%;
+        height: 100%;
+        padding: 10px 0px;
+    }
+
+    .el-form {
+        overflow: auto;
+        padding: 0px 5px
+    }
+
+    .el-form-item {
+        background-color: #272727;
+        padding: 8px 20px 8px;
+        margin-bottom: 10px !important;
+        border-radius: 5px;
+    }
+
+    .el-form-item__label {
+        color: #ffffff;
+        font-size: 16px;
+    }
+
+    .el-input__inner {
+        background-color: #272727;
+        color: #ffffff;
+        font-size: 16px;
+    }
+
+    .form-header {
+        color: #5a5656;
+        text-align: center;
+        line-height: 30px;
+        height: 30px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+        height: 1px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #00FDFF;
+    }
+
+    ::-webkit-scrollbar {
+        height: 5px;
+        background-color: #272727;
+        border-radius: 3px;
+        margin-left: 10px;
+    }
+</style>
+
+<body style="margin: 0px;">
+    <div id="app">
+        <el-row style="height:50%;display: flex;">
+            <div class="form-div">
+                <div class="form-header">维修状态信息</div>
+                <el-form ref="leftTopForm" :model="leftTopForm" label-width="80px" size="mini"
+                    style="height: calc(100% - 30px);">
+                    <el-form-item label="型号">
+                        <el-select v-model="leftTopForm.model" style="width: 100%;">
+                            <el-option label="1810" value="1810"></el-option>
+                            <el-option label="J16" value="J16"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="公司编号">
+                        <el-select v-model="leftTopForm.companyCode" style="width: 100%;">
+                            <el-option label="J16-0001" value="J16-0001"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item :label="item.label" v-for="item in leftTopSpanList" :key="item.prop">
+                        <span>{{leftTopForm[item.prop]}}</span>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div style="text-align: center;width: 60%;height:100%;">
+                <div class="fontHead">单机大修状态纪实
+                </div>
+                <el-image src="./img/background2.png"></el-image>
+            </div>
+            <div class="form-div">
+                <div class="form-header">维修状态信息</div>
+                <el-form ref="rightTopForm" :model="rightTopForm" label-width="80px" size="mini"
+                    style="height: calc(100% - 30px);">
+                    <el-form-item label-width="0px" style="text-align: center;">
+                        <div style="font-size: 20px;color:#ffffff">左 法</div>
+                    </el-form-item>
+                    <el-form-item label="型号"> {{rightTopForm.model1}} </el-form-item>
+                    <el-form-item label="发动机号"> {{rightTopForm.model1}} </el-form-item>
+                    <el-form-item label="返修次数"> {{rightTopForm.model1}} </el-form-item>
+                    <el-form-item label="剩余时间"> {{rightTopForm.model1}} </el-form-item>
+                    <el-form-item label="阶段时间"> {{rightTopForm.model1}} </el-form-item>
+                    <el-form-item label-width="0px" style="text-align: center;">
+                        <div style="font-size: 20px;color:#ffffff">右 法</div>
+                    </el-form-item>
+                    <el-form-item label="型号"> {{rightTopForm.model1}} </el-form-item>
+                    <el-form-item label="发动机号"> {{rightTopForm.model1}} </el-form-item>
+                    <el-form-item label="返修次数"> {{rightTopForm.model1}} </el-form-item>
+                    <el-form-item label="剩余时间"> {{rightTopForm.model1}} </el-form-item>
+                    <el-form-item label="阶段时间"> {{rightTopForm.model1}} </el-form-item>
+                </el-form>
+            </div>
+        </el-row>
+        <el-row style="height:50%;">
+            <el-col :span="12" style="height:calc(100% - 30px);margin-top:30px">
+                <div ref="leftEchart" style="width:100%;height:100%"></div>
+            </el-col>
+            <el-col :span="12" style="height:calc(100% - 30px);margin-top:30px">
+                <div ref="rightEchart" style="width:100%;height:100%"></div>
+            </el-col>
+        </el-row>
+    </div>
+</body>
+
+
+<script src="./js/vue.js"></script>
+<script src="./js/echarts.js"></script>
+<script src="./js/element/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        name: 'RepairStatus',
+        data: function () {
+            return {
+                leftTopForm: {
+                    model: '',
+                    companyCode: '',
+                    jiaci: ''
+                },
+                leftTopSpanList: [
+                    { label: '架次', prop: 'jiaci' },
+                    { label: '整机重量', prop: '1' },
+                    { label: '返修次数', prop: '2' },
+                    { label: '飞行时间', prop: '3' },
+                    { label: '起落次数', prop: '4' },
+                    { label: '进厂时间', prop: '5' },
+                    { label: '维修进度', prop: 'jia6ci' },
+                    { label: '出厂时间', prop: '7' },
+                ],
+                rightTopForm: {}
+            }
+        },
+        mounted: function () {
+            this.leftEchart()
+            this.rightEchart()
+        },
+        methods: {
+            leftEchart: function () {
+                const myChart = echarts.init(this.$refs.leftEchart);
+                const option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            crossStyle: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    title: {
+                        text: '技术通报',
+                        left: 'center',
+                        textStyle: {
+                            color: "#ffffff",
+                            fontSize: 30,
+                            fontFamily: "monospace"
+                        }
+                    },
+                    toolbox: {
+                        feature: {
+                            dataView: { show: true, readOnly: false },
+                            magicType: { show: true, type: ['line', 'bar'] },
+                            restore: { show: true },
+                            saveAsImage: { show: true }
+                        }
+                    },
+
+                    legend: {
+                        top: 'bottom',
+                        left: 'center',
+                        textStyle: {
+                            color: "#ffffff"
+                        }
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: ['一厂', '二厂', '三厂', '四厂', '试飞厂'],
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '液压',
+                            type: 'bar',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [320, 332, 301, 334, 320]
+                        },
+                        {
+                            name: '冷气',
+                            type: 'bar',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [120, 132, 101, 134, 210]
+                        },
+                        {
+                            name: '操纵',
+                            type: 'bar',
+                            stack: 'Ad',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [220, 182, 191, 234, 310]
+                        },
+                        {
+                            name: '燃油',
+                            type: 'bar',
+                            stack: 'Ad',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: [150, 232, 201, 154, 410]
+                        }
+                    ]
+                };
+                option && myChart.setOption(option);
+            },
+            rightEchart: function () {
+                const myChart = echarts.init(this.$refs.rightEchart);
+                const option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    },
+                    legend: {
+                        top: 'bottom',
+                        left: 'center',
+                        textStyle: {
+                            color: "#ffffff"
+                        }
+                    },
+                    title: {
+                        text: '质量问题',
+                        left: 'center',
+                        textStyle: {
+                            color: "#ffffff",
+                            fontSize: 30,
+                            fontFamily: "monospace"
+                        }
+                    },
+
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: { show: true },
+                            dataView: { show: true, readOnly: false },
+                            restore: { show: true },
+                            saveAsImage: { show: true }
+                        }
+                    },
+
+                    series: [
+                        {
+                            name: '部位统计',
+                            type: 'pie',
+                            radius: [20, 140],
+                            center: ['25%', '50%'],
+                            roseType: 'area',
+                            itemStyle: {
+                                borderRadius: 5
+                            },
+                            label: {
+                                show: false
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { value: 40, name: '液压' },
+                                { value: 33, name: '冷气' },
+                                { value: 28, name: '操纵' },
+                                { value: 22, name: '燃油' },
+                                { value: 20, name: '仪表' },
+                                { value: 15, name: '空调' },
+                                { value: 12, name: '结构' },
+                                { value: 10, name: '电气' }
+                            ]
+                        },
+                        {
+                            name: '单位统计',
+                            type: 'pie',
+                            radius: [20, 140],
+                            center: ['75%', '50%'],
+                            roseType: 'area',
+                            itemStyle: {
+                                borderRadius: 5
+                            },
+                            data: [
+                                { value: 30, name: '液压' },
+                                { value: 28, name: '冷气' },
+                                { value: 26, name: '操纵' },
+                                { value: 24, name: '燃油' },
+                                { value: 22, name: '仪表' },
+                                { value: 20, name: '空调' },
+                                { value: 18, name: '结构' },
+                                { value: 16, name: '电气' }
+                            ]
+                        }
+                    ]
+                };
+                option && myChart.setOption(option);
+            }
+        },
+    })
+</script>
+
+</html>
