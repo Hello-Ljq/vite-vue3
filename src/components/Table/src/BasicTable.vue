@@ -75,7 +75,7 @@
   import { warn } from '/@/utils/log';
 
   export default defineComponent({
-    name: 'BasicTable',
+    name:'BasicTable',
     components: {
       Table,
       BasicForm,
@@ -102,7 +102,7 @@
     ],
     setup(props, { attrs, emit, slots, expose }) {
       const tableElRef = ref(null);
-      const tableData = ref([]);
+      const tableData = ref<Recordable[]>([]);
 
       const wrapRef = ref(null);
       const formRef = ref(null);
@@ -184,7 +184,6 @@
         getViewColumns,
         getColumns,
         setCacheColumnsByField,
-        setCacheColumns,
         setColumns,
         getColumnsRef,
         getCacheColumns,
@@ -240,7 +239,7 @@
 
       const getBindValues = computed(() => {
         const dataSource = unref(getDataSourceRef);
-        let propsData: any = {
+        let propsData: Recordable = {
           ...attrs,
           customRow,
           ...unref(getProps),
@@ -324,7 +323,6 @@
         getSize: () => {
           return unref(getBindValues).size as SizeType;
         },
-        setCacheColumns,
       };
       createTableContext({ ...tableAction, wrapRef, getBindValues });
 
@@ -381,23 +379,21 @@
 
       .ant-form {
         width: 100%;
-        margin-bottom: 16px;
         padding: 12px 10px 6px;
-        border-radius: 2px;
+        margin-bottom: 16px;
         background-color: @component-background;
+        border-radius: 2px;
       }
     }
 
-    .ant-table-cell {
-      .ant-tag {
-        margin-right: 0;
-      }
+    .ant-tag {
+      margin-right: 0;
     }
 
     .ant-table-wrapper {
       padding: 6px;
-      border-radius: 2px;
       background-color: @component-background;
+      border-radius: 2px;
 
       .ant-table-title {
         min-height: 40px;
@@ -415,10 +411,10 @@
 
       &-title {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
         padding: 8px 6px;
         border-bottom: none;
+        justify-content: space-between;
+        align-items: center;
       }
 
       //.ant-table-tbody > tr.ant-table-row-selected td {

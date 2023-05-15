@@ -40,20 +40,20 @@ export const useUserStore = defineStore({
     lastUpdateTime: 0,
   }),
   getters: {
-    getUserInfo(state): UserInfo {
-      return state.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY) || {};
+    getUserInfo(): UserInfo {
+      return this.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY) || {};
     },
-    getToken(state): string {
-      return state.token || getAuthCache<string>(TOKEN_KEY);
+    getToken(): string {
+      return this.token || getAuthCache<string>(TOKEN_KEY);
     },
-    getRoleList(state): RoleEnum[] {
-      return state.roleList.length > 0 ? state.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY);
+    getRoleList(): RoleEnum[] {
+      return this.roleList.length > 0 ? this.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY);
     },
-    getSessionTimeout(state): boolean {
-      return !!state.sessionTimeout;
+    getSessionTimeout(): boolean {
+      return !!this.sessionTimeout;
     },
-    getLastUpdateTime(state): number {
-      return state.lastUpdateTime;
+    getLastUpdateTime(): number {
+      return this.lastUpdateTime;
     },
   },
   actions: {
